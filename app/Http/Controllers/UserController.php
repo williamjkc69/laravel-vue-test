@@ -8,33 +8,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Register
-     */
-    public function register(Request $request)
-    {
-        try {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = \Hash::make($request->password);
-            $user->save();
-
-            $success = true;
-            $message = 'User register successfully';
-        } catch (\Exception $ex) {
-            $success = false;
-            $message = $ex->getMessage();
-        }
-
-        // response
-        $response = [
-            'success' => $success,
-            'message' => $message,
-        ];
-        return response()->json($response);
-    }
-
-    /**
      * Login
      */
     public function login(Request $request)
@@ -44,9 +17,11 @@ class UserController extends Controller
             'password' => $request->password,
         ];
 
-        if (\Auth::attempt($credentials)) {
+        if (auth()->attempt($credentials)) {
             $success = true;
             $message = 'User login successfully';
+            $token = auth()->user()->createToken('Laravel Password Grant Client')->accessToken;
+            $response = ['token' => $token];
         } else {
             $success = false;
             $message = 'Unauthorised';
@@ -56,6 +31,8 @@ class UserController extends Controller
         $response = [
             'success' => $success,
             'message' => $message,
+            'token' => $token,
+            'user' => auth()->user(),
         ];
         return response()->json($response);
     }

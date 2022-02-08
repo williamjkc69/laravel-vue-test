@@ -1,17 +1,15 @@
 
-import axios from 'axios'
+import HTTP from '../Axios'
 
 class AuthService {
-  baseUrl='localhost:8000/api'
-
   login(data) {
-    return axios.post(`${this.baseUrl}/login`, data,  { headers: {
-      'Cache-Control': 'no-cache',
-      'Access-Control-Allow-Headers': '*',
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json',
-    } },)
+    return HTTP.post(`/login`, data)
+  }
+  logout() {
+    return HTTP.post(`/logout`)
+  }
+  getSubjects(){
+    return HTTP.get('subjects')
   }
 }
 

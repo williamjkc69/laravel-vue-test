@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at'
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The subjects that belong to the role.
+     */
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'user_subject');
+    }
 }

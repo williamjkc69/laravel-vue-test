@@ -1,6 +1,6 @@
 <template>
     <div>
-        Welcome {{ name }}
+        <h1>Welcome {Username}, <a href="#" @click="logout">Logout</a></h1>
     </div>
 </template>
 
@@ -17,11 +17,17 @@ export default {
             this.name = window.Laravel.user.name
         }
     },
+    methods:{
+        logout(){
+            //
+        }
+    },
     beforeRouteEnter(to, from, next) {
         if (!window.Laravel.isLoggedin) {
             window.location.href = "/";
         }
         next();
     }
+
 }
 </script>

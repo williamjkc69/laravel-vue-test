@@ -5,8 +5,8 @@ import Dashboard from '../components/Dashboard';
 
 export const routes = [
     {
-        name: 'login',
-        path: '/login',
+        name: 'home',
+        path: '/',
         component: Login
     },
     {
